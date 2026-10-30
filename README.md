@@ -3,7 +3,14 @@
 A zero-install, in-browser book reader: highlights, notes, bookmarks, and reading progress.
 Everything runs client-side; your books and annotations stay in the browser (IndexedDB).
 
-## Run
+## Deploy to GitHub Pages
+1. Merge to `main` (the workflow in `.github/workflows/pages.yml` publishes on every push to `main`).
+2. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Your reader is at `https://<user>.github.io/PRdocreader/`. Installable as an app and works offline after the first visit.
+
+Note: browser storage is per-origin, so your books/notes live in the browser profile you use on `github.io`; use Export/Import to move them.
+
+## Run locally
 - Any static host (e.g. GitHub Pages), or locally: `python3 -m http.server` and open http://localhost:8000
 - Opening `index.html` directly from disk also works in most browsers.
 

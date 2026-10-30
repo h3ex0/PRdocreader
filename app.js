@@ -420,6 +420,7 @@
   };
 
   // ----- boot -----
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(() => {});
   applyTheme();
   renderShelf();
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
