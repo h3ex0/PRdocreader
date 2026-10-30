@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocReader</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+<!-- Library -->
+<section id="library" class="view">
+  <header class="bar">
+    <h1>DocReader</h1>
+    <div class="spacer"></div>
+    <button id="btn-url">Open from URL</button>
+    <label class="btn primary">Add book<input id="file-input" type="file" accept=".epub,application/epub+zip" multiple hidden></label>
+    <button id="btn-export">Export data</button>
+    <label class="btn">Import data<input id="import-input" type="file" accept="application/json" hidden></label>
+  </header>
+  <div id="drop" class="drop">Drop .epub files here, or use “Add book”.</div>
+  <div id="shelf" class="shelf"></div>
+</section>
+
+<!-- Reader -->
+<section id="reader" class="view" hidden>
+  <header class="bar">
+    <button id="btn-back" title="Back to library">←</button>
+    <div id="book-title" class="title"></div>
+    <div class="spacer"></div>
+    <button id="btn-bookmark" title="Bookmark this page (B)">🔖</button>
+    <button id="btn-smaller" title="Smaller text">A−</button>
+    <button id="btn-larger" title="Larger text">A+</button>
+    <button id="btn-flow" title="Toggle paged / scrolling">Paged</button>
+    <button id="btn-theme" title="Change theme">Light</button>
+    <button id="btn-panel" title="Contents, notes, bookmarks (T)">☰</button>
+  </header>
+  <div class="reader-body">
+    <div class="stage">
+      <button class="nav prev" id="btn-prev" title="Previous (←)">‹</button>
+      <div id="viewer"></div>
+      <button class="nav next" id="btn-next" title="Next (→)">›</button>
+    </div>
+    <aside id="panel" hidden>
+      <div class="tabs">
+        <button data-tab="toc" class="active">Contents</button>
+        <button data-tab="notes">Highlights</button>
+        <button data-tab="marks">Bookmarks</button>
+      </div>
+      <div id="tab-toc" class="tab"></div>
+      <div id="tab-notes" class="tab" hidden></div>
+      <div id="tab-marks" class="tab" hidden></div>
+    </aside>
+  </div>
+  <footer class="foot">
+    <span id="where"></span>
+    <input id="slider" type="range" min="0" max="1000" value="0">
+    <span id="pct">0%</span>
+  </footer>
+
+  <div id="selbar" hidden>
+    <button class="swatch" data-color="#ffd54f" style="background:#ffd54f" title="Yellow"></button>
+    <button class="swatch" data-color="#81c784" style="background:#81c784" title="Green"></button>
+    <button class="swatch" data-color="#64b5f6" style="background:#64b5f6" title="Blue"></button>
+    <button class="swatch" data-color="#f48fb1" style="background:#f48fb1" title="Pink"></button>
+    <button id="sel-note">Highlight + note</button>
+    <button id="sel-cancel">✕</button>
+  </div>
+</section>
+
+<dialog id="note-dialog">
+  <form method="dialog">
+    <blockquote id="note-quote"></blockquote>
+    <textarea id="note-text" rows="5" placeholder="Your note…"></textarea>
+    <div class="row">
+      <button value="delete" id="note-delete" class="danger">Delete highlight</button>
+      <div class="spacer"></div>
+      <button value="cancel">Cancel</button>
+      <button value="save" class="primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" hidden></div>
+
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/epub.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
